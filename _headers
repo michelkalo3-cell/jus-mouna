@@ -1,0 +1,26 @@
+# Fichier _headers — reconnu automatiquement par Netlify (et compatible avec d'autres hébergeurs
+# qui lisent ce format, ex. Cloudflare Pages). Il applique de vraies en-têtes de sécurité HTTP,
+# ce qu'une balise <meta> dans le HTML ne peut pas faire pour certaines d'entre elles
+# (X-Frame-Options, Strict-Transport-Security, Permissions-Policy).
+#
+# Si vous hébergez ailleurs (serveur perso, autre plateforme), configurez l'équivalent
+# dans la configuration de votre serveur (Nginx, Apache, etc.).
+
+/*
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), camera=(), microphone=(), payment=()
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+
+# Le HTML change souvent : pas de cache long
+/index.html
+  Cache-Control: public, max-age=0, must-revalidate
+
+# Les icônes et fichiers statiques changent rarement : cache long
+/icons/*
+  Cache-Control: public, max-age=31536000, immutable
+/og-image.png
+  Cache-Control: public, max-age=31536000, immutable
+/site.webmanifest
+  Cache-Control: public, max-age=86400

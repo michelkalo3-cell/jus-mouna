@@ -1,0 +1,21 @@
+{
+  "name": "Jus Mouna — Jus 100% naturels",
+  "short_name": "Jus Mouna",
+  "description": "Jus 100 % naturels, sans colorant ni additif : bissap, citron, passion, cocktail, gingembre. Commande via WhatsApp.",
+  "start_url": "/?utm_source=pwa",
+  "id": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#FAF7ED",
+  "theme_color": "#2A0A17",
+  "lang": "fr-CI",
+  "dir": "ltr",
+  "categories": ["food", "shopping"],
+  "icons": [
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
