@@ -1,5 +1,5 @@
 # Jus Mouna — robots.txt
-# À placer à la racine du domaine (ex. https://www.jusmouna.ci/robots.txt)
+# À placer à la racine du domaine (ex. https://jus-mouna.vercel.app/robots.txt)
 
 User-agent: *
 Allow: /
@@ -7,4 +7,4 @@ Allow: /
 # Fichiers techniques inutiles à explorer
 Disallow: /*.json$
 
-Sitemap: https://www.jusmouna.ci/sitemap.xml
+Sitemap: https://jus-mouna.vercel.app/sitemap.xml
