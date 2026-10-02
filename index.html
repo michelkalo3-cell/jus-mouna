@@ -183,9 +183,15 @@ button,input,select,textarea{font:inherit;color:inherit}
 /* Carte des saveurs */
 .menu{display:grid;gap:clamp(36px,5vw,56px)}
 .item{display:grid;gap:20px 44px;grid-template-columns:1fr;align-items:center}
-@media (min-width:860px){.item{grid-template-columns:280px minmax(0,1fr) minmax(320px,400px)}}
-.swatch{height:320px;border-radius:28px;background:radial-gradient(120% 100% at 50% 100%, color-mix(in srgb,var(--c) 38%,var(--bg)), color-mix(in srgb,var(--c) 18%,var(--bg)));display:grid;place-items:end center;padding-bottom:14px;overflow:hidden}
-.swatch img{height:288px;width:auto;filter:drop-shadow(0 16px 18px rgba(0,0,0,.28))}
+@media (min-width:860px){.item{grid-template-columns:300px minmax(0,1fr) minmax(320px,400px)}}
+.swatch{height:320px;border-radius:28px;background:radial-gradient(120% 100% at 50% 100%, color-mix(in srgb,var(--c) 38%,var(--bg)), color-mix(in srgb,var(--c) 18%,var(--bg)));display:flex;align-items:flex-end;justify-content:center;padding:12px 14px 10px;overflow:hidden;position:relative}
+.bottle-pair{display:flex;align-items:flex-end;justify-content:center;gap:16px;width:100%;height:100%}
+.bottle-col{display:flex;flex-direction:column;align-items:center;justify-content:flex-end;position:relative;transition:transform .22s ease}
+.bottle-col:hover{transform:translateY(-3px)}
+.bt-img{display:block;width:auto;object-fit:contain}
+.bt-1l{height:250px;filter:drop-shadow(0 14px 16px rgba(0,0,0,.26))}
+.bt-330{height:185px;filter:drop-shadow(0 10px 14px rgba(0,0,0,.22))}
+.bt-tag{margin-top:6px;padding:3px 10px;border-radius:999px;font-size:12px;font-weight:700;letter-spacing:.02em;background:rgba(255,255,255,.92);color:#25140E;box-shadow:0 2px 6px rgba(0,0,0,.1);backdrop-filter:blur(4px);white-space:nowrap}
 .item h3{margin:0 0 8px;font:800 clamp(30px,3.6vw,42px)/1 var(--f-display);letter-spacing:-.025em}
 .item p{margin:0;max-width:32ch;color:var(--ink-soft);text-wrap:pretty}
 .rows{display:grid}
@@ -511,7 +517,7 @@ button,input,select,textarea{font:inherit;color:inherit}
         <ul class="foot-contact">
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a9 9 0 0 0-7.8 13.5L3 21l4.7-1.2A9 9 0 1 0 12 3z"/></svg>
-            <a id="footWa" href="#" target="_blank" rel="noopener">+225 07 03 24 52 20 (WhatsApp)</a>
+            <a id="footWa" href="#" target="_blank" rel="noopener">+225 07 08 00 19 60 (WhatsApp)</a>
           </li>
           <li>
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -582,7 +588,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 /* =====================  CONFIGURATION  ===================== */
 const CONFIG = {
   brand: 'Jus Mouna',
-  whatsapp: '2250703245220'     // +225 07 03 24 52 20
+  whatsapp: '2250708001960'     // +225 07 08 00 19 60
 };
 
 const FORMATS = [
@@ -629,11 +635,14 @@ const HELLO = 'Bonjour, je souhaite commander vos jus.';
 ['#heroWa', '#footWa', '#waFloat'].forEach(s => { $(s).href = waHref(HELLO); });
 
 /* =====================  BOUTEILLE (visuel provisoire)  ===================== */
-function bottleSrc(f) {
+function bottleSrc(f, format = '1L') {
+  if (format === '330ml' && BOTTLE_IMAGES[f.id + '_330']) return BOTTLE_IMAGES[f.id + '_330'];
   if (BOTTLE_IMAGES[f.id]) return BOTTLE_IMAGES[f.id];
   const name = f.name.toUpperCase();
+  const is330 = format === '330ml';
   const size = Math.min(15.5, 76 / (name.length * 0.74)).toFixed(1);
-  const uid = f.id; // suffixe unique pour les défs (évite les collisions entre bouteilles)
+  const uid = f.id + (is330 ? '-330' : '-1l'); // suffixe unique pour les défs (évite les collisions entre bouteilles)
+  const formatText = is330 ? '330 mL' : '1 LITRE';
   const svg =
 `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 340">
 <defs>
@@ -707,6 +716,7 @@ function bottleSrc(f) {
 <text x="60" y="256" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="6.4" letter-spacing=".8" fill="${f.dark}" opacity=".8">100% NATUREL</text>
 <circle cx="60" cy="272" r="6.5" fill="${f.main}"/>
 <path d="M60 267.5c2.4 0 4 1.8 4 4.5s-1.6 4.5-4 4.5-4-1.8-4-4.5 1.6-4.5 4-4.5Z" fill="${f.dark}" opacity=".35"/>
+<text x="60" y="284" text-anchor="middle" font-family="Arial, sans-serif" font-weight="700" font-size="5.8" letter-spacing=".6" fill="${f.dark}" opacity=".8">${formatText}</text>
 </svg>`;
   return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
 }
@@ -829,7 +839,18 @@ const key = (fid, fm) => fid + '|' + fm;
 
 $('#menu').innerHTML = FLAVORS.map(f => `
   <article class="item" style="--c:${f.main}">
-    <div class="swatch"><img src="${bottleSrc(f)}" alt="Bouteille de jus ${f.name}"></div>
+    <div class="swatch" aria-label="Bouteilles de jus ${f.name} en formats 1 L et 330 mL">
+      <div class="bottle-pair">
+        <div class="bottle-col b-1l">
+          <img src="${bottleSrc(f, '1L')}" alt="Bouteille 1 L de jus ${f.name}" class="bt-img bt-1l" title="Format 1 L (2 500 FCFA)">
+          <span class="bt-tag">1 L</span>
+        </div>
+        <div class="bottle-col b-330">
+          <img src="${bottleSrc(f, '330ml')}" alt="Bouteille 330 mL de jus ${f.name}" class="bt-img bt-330" title="Format 330 mL (500 FCFA)">
+          <span class="bt-tag">330 mL</span>
+        </div>
+      </div>
+    </div>
     <div>
       <h3>${f.name}</h3>
       <p>${f.desc}</p>
