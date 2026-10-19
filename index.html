@@ -597,9 +597,9 @@ const FORMATS = [
 ];
 
 const FLAVORS = [
+  { id: 'passion',   name: 'Passion',   main: '#FF7F00', dark: '#A84600', desc: 'Fruit de la passion, parfumé et doux-acidulé.' },
   { id: 'bissap',    name: 'Bissap',    main: '#8B002E', dark: '#50001A', desc: "Fleurs d'hibiscus, rouge rubis, une fraîcheur acidulée." },
   { id: 'citron',    name: 'Citron',    main: '#F5E072', dark: '#9E8820', desc: 'Citron vif et désaltérant, pour les journées chaudes.' },
-  { id: 'passion',   name: 'Passion',   main: '#FF7F00', dark: '#A84600', desc: 'Fruit de la passion, parfumé et doux-acidulé.' },
   { id: 'cocktail',  name: 'Cocktail',  main: '#FF8C00', dark: '#A85000', desc: 'Un mélange de fruits, pour ceux qui ne veulent pas choisir.' },
   { id: 'gingembre', name: 'Gingembre', main: '#E2D1B3', dark: '#826E50', desc: 'Gingembre frais, piquant et tonique.' },
   { id: 'cocota',    name: 'Côcôta',    main: '#B4935E', dark: '#5A492F', desc: 'Noix de cola, corsée et tonique, pour un vrai coup de fouet naturel.' }
@@ -723,7 +723,7 @@ function bottleSrc(f, format = '1L') {
 
 /* =====================  HERO : ÉVENTAIL AU SCROLL  ===================== */
 // De gauche à droite : 3 bouteilles, la bouteille centrale, 3 bouteilles.
-const ORDER = ['gingembre', 'bissap', 'citron', 'cocota', 'passion', 'cocktail', 'gingembre'];
+const ORDER = ['gingembre', 'bissap', 'citron', 'passion', 'cocota', 'cocktail', 'gingembre'];
 const fan = $('#fan');
 const bottles = ORDER.map((id, i) => {
   const img = new Image();
